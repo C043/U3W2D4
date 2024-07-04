@@ -44,4 +44,13 @@ describe("Book selection function", () => {
     const firstCard = screen.getByTestId(/testId 0345546792/i);
     expect(firstCard.className === "border-danger mb-3 card").toBe(true);
   });
+  it("changes border color back to normal if another card is clicked", () => {
+    render(<BookList genre={horrorBooks} />);
+    const firstCardImg = screen.getByAltText("The Silent Corner: A Novel of Suspense (Jane Hawk)");
+    fireEvent.click(firstCardImg);
+    const firstCard = screen.getByTestId(/testId 0345546792/i);
+    const secondCardImg = screen.getByAltText("Celtic Empire (Dirk Pitt Adventure)");
+    fireEvent.click(secondCardImg);
+    expect(firstCard.className === "mb-3 card").toBe(true);
+  });
 });
