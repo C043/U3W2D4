@@ -1,6 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { expect, it } from "vitest";
+import { findAllByAltText, findAllByRole, render, screen } from "@testing-library/react";
 import Welcome from "../components/Welcome";
+import { describe, expect, it } from "vitest";
+import horrorBooks from "../data/horror.json";
+import BookList from "../components/BookList";
 
 describe("Welcome component", () => {
   it("mounts correctly", () => {
@@ -8,5 +10,15 @@ describe("Welcome component", () => {
     screen.debug();
     const heading = screen.getByText(/Welcome to EpiBooks!/i);
     expect(heading).toBeInTheDocument();
+  });
+});
+
+describe("Book cards", () => {
+  it("render all the books", async () => {
+    render(<BookList genre={horrorBooks} />);
+    screen.debug();
+    console.log(horrorBooks.length);
+    const cards = await screen.findAllByRole("img");
+    expect(cards.length).toBeLessThanOrEqual(horrorBooks.length);
   });
 });
