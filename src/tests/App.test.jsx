@@ -1,6 +1,5 @@
-import { findAllByAltText, findAllByRole, render, screen } from "@testing-library/react";
+import { findAllByRole, render, screen } from "@testing-library/react";
 import Welcome from "../components/Welcome";
-import { describe, expect, it } from "vitest";
 import horrorBooks from "../data/horror.json";
 import BookList from "../components/BookList";
 
