@@ -37,6 +37,7 @@ const BookList = props => {
                   }}
                   handleSelect={() => setCurrentAsin(book.asin)}
                   currentAsin={currentAsin}
+                  data-testId={"testId " + book.asin}
                 />
               ))}
           </Row>

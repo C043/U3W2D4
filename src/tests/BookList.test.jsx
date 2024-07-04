@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import CommentArea from "../components/CommentArea";
 import BookList from "../components/BookList";
 import horrorBooks from "../data/horror.json";
+import { describe, expect } from "vitest";
 
 describe("CommentArea component", () => {
   it("mounts correctly", () => {
@@ -32,5 +33,15 @@ describe("Book filter function works properly", () => {
     fireEvent.change(input, { target: { value: "star wars" } });
     const cards = screen.getAllByRole("img");
     expect(cards.length).toBeLessThanOrEqual(2);
+  });
+});
+
+describe("Book selection function", () => {
+  it("changes border color", () => {
+    render(<BookList genre={horrorBooks} />);
+    const firstCardImg = screen.getByAltText("The Silent Corner: A Novel of Suspense (Jane Hawk)");
+    fireEvent.click(firstCardImg);
+    const firstCard = screen.getByTestId(/testId 0345546792/i);
+    expect(firstCard.className === "border-danger mb-3 card").toBe(true);
   });
 });
