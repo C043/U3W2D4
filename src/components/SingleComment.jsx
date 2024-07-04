@@ -2,12 +2,6 @@ import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Trash3 } from "react-bootstrap-icons";
 const SingleComment = props => {
-  /*   state = {
-    id: this.props.id,
-    show: true,
-  };
- */
-
   const [show, setShow] = useState(true);
 
   const handleDelete = async () => {
@@ -38,7 +32,10 @@ const SingleComment = props => {
     <div className="d-flex flex-column">
       <div className="d-flex align-items-center">
         <p>
-          {props.author} <br /> gave {props.rate}/5 <br /> `{props.comment}`
+          {props.comment}{" "}
+          <span>
+            <b>{props.rate}/5</b>
+          </span>
         </p>
         <Button variant="danger" className="ms-auto" onClick={() => handleDelete()}>
           <Trash3 />
