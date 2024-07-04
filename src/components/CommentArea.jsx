@@ -37,7 +37,6 @@ const CommentArea = props => {
   };
 
   useEffect(() => {
-    console.log("daje");
     if (props.asin) {
       fetchComments();
     }
