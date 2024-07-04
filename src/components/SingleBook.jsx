@@ -7,7 +7,6 @@ const SingleBook = props => {
         type="button"
         className={props.currentAsin === props.book.asin ? "border-danger mb-3" : "mb-3"}
         style={{ width: "100%" }}
-        data-testId={props["data-testId"]}
       >
         <Card.Img
           variant="top"

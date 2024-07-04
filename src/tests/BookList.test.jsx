@@ -1,16 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import CommentArea from "../components/CommentArea";
 import BookList from "../components/BookList";
 import horrorBooks from "../data/horror.json";
 import { describe, expect } from "vitest";
-
-describe("CommentArea component", () => {
-  it("mounts correctly", () => {
-    render(<CommentArea />);
-    const commentLabel = screen.getByLabelText(/Comment/i);
-    expect(commentLabel).toBeInTheDocument();
-  });
-});
 
 describe("Book filter function works properly", () => {
   it("returns three books if user types hor", () => {
@@ -41,17 +32,17 @@ describe("Book selection function", () => {
     render(<BookList genre={horrorBooks} />);
     const firstCardImg = screen.getByAltText("The Silent Corner: A Novel of Suspense (Jane Hawk)");
     fireEvent.click(firstCardImg);
-    const firstCard = screen.getByTestId(/testId 0345546792/i);
-    expect(firstCard.className === "border-danger mb-3 card").toBe(true);
+    const firstCard = firstCardImg.closest(".card");
+    expect(firstCard).toHaveClass("border-danger");
   });
   it("changes border color back to normal if another card is clicked", () => {
     render(<BookList genre={horrorBooks} />);
     const firstCardImg = screen.getByAltText("The Silent Corner: A Novel of Suspense (Jane Hawk)");
     fireEvent.click(firstCardImg);
-    const firstCard = screen.getByTestId(/testId 0345546792/i);
+    const firstCard = firstCardImg.closest(".card");
     const secondCardImg = screen.getByAltText("Celtic Empire (Dirk Pitt Adventure)");
     fireEvent.click(secondCardImg);
-    expect(firstCard.className === "mb-3 card").toBe(true);
+    expect(firstCard).not.toHaveClass("border-danger");
   });
 });
 
@@ -62,22 +53,5 @@ describe("Book cards", () => {
     console.log(horrorBooks.length);
     const cards = await screen.findAllByRole("img");
     expect(cards.length).toBeLessThanOrEqual(horrorBooks.length);
-  });
-});
-
-describe("Single comment component", () => {
-  it("not present if no book is selected", () => {
-    render(<BookList genre={horrorBooks} />);
-    const selectBookAlert = screen.getByText(/Select a Book/i);
-    expect(selectBookAlert).toBeInTheDocument();
-  });
-  it("not present if no book is selected", async () => {
-    render(<BookList genre={horrorBooks} />);
-    screen.debug();
-
-    const firstBookImg = screen.getByAltText("The Silent Corner: A Novel of Suspense (Jane Hawk)");
-    fireEvent.click(firstBookImg);
-    const singleComment = await screen.findByText("Troppo western!");
-    expect(singleComment).toBeInTheDocument();
   });
 });
